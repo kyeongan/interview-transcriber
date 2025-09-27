@@ -57,6 +57,9 @@ app.post('/api/transcribe', upload.single('file'), async (req, res) => {
       'audio/mpeg',
       'audio/wav',
       'audio/webm',
+      'audio/x-m4a', // M4A files
+      'audio/m4a', // Alternative M4A MIME type
+      'audio/mp3', // Alternative MP3 MIME type
       'video/mp4',
     ];
     const fileType = req.file.mimetype;
@@ -64,7 +67,7 @@ app.post('/api/transcribe', upload.single('file'), async (req, res) => {
     if (!allowedTypes.includes(fileType)) {
       return res.status(400).json({
         error: 'Unsupported file type',
-        userMessage: `File type '${fileType}' is not supported. Please upload MP4 file.`,
+        userMessage: `File type '${fileType}' is not supported. Please upload MP3, MP4, M4A, WAV, or WebM files.`,
       });
     }
 

@@ -11,7 +11,7 @@ A modern React web application that provides AI-powered interview transcription 
 
 ## ✨ Features
 
-- 🎵 **Audio File Upload** - Support for MP4, MP3, WAV, and WebM files (max 10MB)
+- 🎵 **Audio File Upload** - Support for MP3, MP4, M4A, WAV, and WebM files (max 10MB)
 - 🤖 **AI Transcription** - Powered by Deepgram's advanced speech-to-text engine
 - 👥 **Speaker Diarization** - Automatically separates Agent and Candidate voices
 - ✏️ **Interactive Editor** - Edit speaker labels and transcript text in real-time
@@ -64,7 +64,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ## 📋 How to Use
 
-1. Upload an audio file (MP4, MP3, WAV, WebM - max 10MB)
+1. Upload an audio file (MP3, MP4, M4A, WAV, WebM - max 10MB)
 2. Click "Run" to transcribe with AI speaker separation
 3. Edit speaker labels and text in the transcript editor
 4. View the conversation in chat bubble format
