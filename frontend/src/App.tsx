@@ -11,6 +11,8 @@ import { formatTime, exportAsJSON } from './utils';
 import type { Segment } from './types';
 import './App.css';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+
 function App() {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState<boolean>(false);
@@ -28,7 +30,7 @@ function App() {
     const fd = new FormData();
     fd.append('file', file);
     try {
-      const res = await axios.post('http://localhost:4000/api/transcribe', fd, {
+      const res = await axios.post(`${API_BASE_URL}/api/transcribe`, fd, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       const { audioUrl, segments: rawSegments } = res.data;
@@ -66,7 +68,7 @@ function App() {
         label: speakerToLabel[s.speaker] || `Speaker ${s.speaker}`,
         timestamp: formatTime(s.start || 0)
       }));
-      setAudioUrl(`http://localhost:4000${audioUrl}`);
+      setAudioUrl(`${API_BASE_URL}${audioUrl}`);
       setSegments(mapped);
     } catch (err: unknown) {
       console.error('Upload error:', err);

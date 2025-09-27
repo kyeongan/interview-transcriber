@@ -7,6 +7,21 @@ const { createClient } = require('@deepgram/sdk');
 const cors = require('cors');
 
 const app = express();
+
+// CORS configuration
+const corsOptions = {
+  origin: [
+    'http://localhost:5173', // Vite dev server
+    'http://localhost:3000', // React dev server
+    'https://interview-transcriber.vercel.app', // Your Vercel domain
+    /\.vercel\.app$/, // Any Vercel domain
+    /\.railway\.app$/ // Any Railway domain
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
+};
+
 app.use(cors(corsOptions));
 
 // Configure multer for different environments
