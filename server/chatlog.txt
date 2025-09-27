@@ -1,0 +1,2 @@
+{"type":"ConversationText","role":"assistant","content":"Hello! How can I help you today?"}
+{"type":"ConversationText","role":"user","content":"Yeah. As as much as it's worth"}
