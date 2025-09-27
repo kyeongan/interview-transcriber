@@ -2,7 +2,7 @@
 
 ## 🚀 Live Application
 
-**Frontend (Vercel)**: https://interview-transcriber.vercel.app  
+**Frontend (Vercel)**: https://interview-transcriber-flame.vercel.app  
 **Backend API (Railway)**: https://interview-transcriber-server-production.up.railway.app
 
 ## 📂 Repository
@@ -103,7 +103,7 @@ npm run dev
 
 ## 📝 Usage Instructions
 
-1. **Visit**: https://interview-transcriber.vercel.app
+1. **Visit**: https://interview-transcriber-flame.vercel.app
 2. **Upload**: Select an audio file (interview recording)
 3. **Transcribe**: Click "Upload & Transcribe"
 4. **Review**: AI processes and labels speakers automatically

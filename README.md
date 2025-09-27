@@ -2,6 +2,11 @@
 
 A modern React web application that provides AI-powered interview transcription with automatic speaker diarization using Deepgram's speech-to-text API.
 
+## 🚀 Live Demo
+
+**Frontend**: https://interview-transcriber-flame.vercel.app  
+**Backend API**: https://interview-transcriber-server-production.up.railway.app
+
 ## ✨ Features
 
 - 🎵 **Audio File Upload** - Support for MP4, MP3, WAV, and WebM files (max 10MB)
@@ -14,8 +19,9 @@ A modern React web application that provides AI-powered interview transcription 
 
 ## 🛠 Tech Stack
 
-- **Frontend**: React 19 + TypeScript, Vite, Axios
-- **Backend**: Node.js + Express, Deepgram SDK, Multer
+- **Frontend**: React 19 + TypeScript, Vite, Vercel hosting
+- **Backend**: Node.js + Express, Deepgram SDK, Railway hosting
+- **AI**: Deepgram nova-2 model with speaker diarization
 - **Styling**: Modern CSS with gradients and animations
 
 ## 🚀 Quick Start
@@ -102,6 +108,12 @@ server/
 4. Push to branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## � Documentation
+
+- **[Deployment Summary](./DEPLOYMENT_SUMMARY.md)** - Production setup and architecture decisions
+- **[Frontend README](./frontend/README.md)** - React application details
+- **[Backend README](./server/README.md)** - API server documentation
+
+## �📄 License
 
 MIT © [Karl Kwon](https://github.com/kyeongan)
