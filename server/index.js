@@ -7,8 +7,15 @@ const { createClient } = require('@deepgram/sdk');
 const cors = require('cors');
 
 const app = express();
-app.use(cors({ origin: true }));
-const upload = multer({ dest: '/tmp' });
+app.use(cors(corsOptions));
+
+// Configure multer for different environments
+const upload = multer({
+  dest: process.env.VERCEL ? '/tmp' : './uploads',
+  limits: {
+    fileSize: 10 * 1024 * 1024, // 10MB limit
+  },
+});
 
 const DEEPGRAM_KEY = process.env.DEEPGRAM_API_KEY;
 if (!DEEPGRAM_KEY) {
@@ -62,13 +69,21 @@ app.post('/api/transcribe', upload.single('file'), async (req, res) => {
       )}KB)`
     );
 
-    // Keep the file on disk so we can serve to client for playback
+    // Handle file storage based on environment
     const tmpPath = req.file.path;
     const filename = `${Date.now()}_${req.file.originalname}`;
-    const publicPath = path.join(__dirname, 'uploads');
-    if (!fs.existsSync(publicPath)) fs.mkdirSync(publicPath);
-    const dest = path.join(publicPath, filename);
-    fs.renameSync(tmpPath, dest);
+
+    let dest;
+    if (process.env.VERCEL) {
+      // For Vercel, use the temp file directly
+      dest = tmpPath;
+    } else {
+      // For Railway/local, move to uploads directory
+      const publicPath = path.join(__dirname, 'uploads');
+      if (!fs.existsSync(publicPath)) fs.mkdirSync(publicPath);
+      dest = path.join(publicPath, filename);
+      fs.renameSync(tmpPath, dest);
+    }
 
     // Use Deepgram SDK for pre-recorded transcription with diarization
     const { result, error } = await deepgram.listen.prerecorded.transcribeFile(
@@ -204,7 +219,9 @@ app.post('/api/transcribe', upload.single('file'), async (req, res) => {
     });
 
     // Return structured transcript + audio URL
-    const audioUrl = `/uploads/${filename}`;
+    const audioUrl = process.env.VERCEL
+      ? null // Vercel doesn't support file serving, audio playback disabled
+      : `/uploads/${filename}`;
     res.json({ audioUrl, segments, raw: dgBody });
   } catch (err) {
     console.error('Transcription error:', err);
@@ -245,5 +262,12 @@ app.post('/api/transcribe', upload.single('file'), async (req, res) => {
 // Serve uploaded files for playback
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
+// For Vercel serverless deployment
+if (process.env.VERCEL) {
+  // Export the Express app as a serverless function
+  module.exports = app;
+} else {
+  // For local development and other deployments
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
+}
