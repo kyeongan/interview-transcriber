@@ -25,11 +25,13 @@ Deploy both frontend and backend to Vercel (with limitations).
 
 ### Step 2: Set Environment Variables
 
-In Vercel dashboard → Settings → Environment Variables:
+In Vercel dashboard → Settings → Environment Variables, add:
 
-```
-VITE_API_URL=https://your-backend-railway-url.railway.app
-```
+- **Name**: `VITE_API_URL`
+- **Value**: `https://your-backend-railway-url.railway.app` (or your backend URL)
+- **Environment**: Production, Preview, Development
+
+⚠️ **Important**: Use the Vercel dashboard to set environment variables, not secrets or the vercel.json file.
 
 ## Backend Deployment (Alternative Options)
 
