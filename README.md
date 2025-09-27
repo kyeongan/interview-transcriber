@@ -6,6 +6,8 @@ A modern React web application that provides AI-powered interview transcription 
 
 **Frontend**: https://interview-transcriber-flame.vercel.app  
 **Backend API**: https://interview-transcriber-server-production.up.railway.app
+![Interview Transcriber App](./images/app-screenshot1.png)
+![Interview Transcriber App](./images/app-screenshot2.png)
 
 ## ✨ Features
 
