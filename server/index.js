@@ -15,11 +15,11 @@ const corsOptions = {
     'http://localhost:3000', // React dev server
     'https://interview-transcriber.vercel.app', // Your Vercel domain
     /\.vercel\.app$/, // Any Vercel domain
-    /\.railway\.app$/ // Any Railway domain
+    /\.railway\.app$/, // Any Railway domain
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
 };
 
 app.use(cors(corsOptions));
@@ -272,6 +272,23 @@ app.post('/api/transcribe', upload.single('file'), async (req, res) => {
         process.env.NODE_ENV === 'development' ? err?.message : undefined,
     });
   }
+});
+
+// Health check endpoint
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Interview Transcriber API is running!', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'healthy', 
+    timestamp: new Date().toISOString(),
+    deepgram: !!DEEPGRAM_KEY 
+  });
 });
 
 // Serve uploaded files for playback
