@@ -18,10 +18,12 @@
 ## ⚡ Quick Setup (Local Development)
 
 ### Prerequisites
+
 - Node.js 18+
 - Deepgram API key
 
 ### Backend Setup
+
 ```bash
 cd server
 npm install
@@ -31,6 +33,7 @@ npm start
 ```
 
 ### Frontend Setup
+
 ```bash
 cd frontend
 npm install
@@ -40,11 +43,13 @@ npm run dev
 ## 🔧 Production Architecture
 
 **Frontend (Vercel)**:
+
 - Static React build deployed via GitHub integration
 - Environment variable: `VITE_API_URL` → Railway backend URL
 - Automatic deployments on GitHub pushes
 
 **Backend (Railway)**:
+
 - Express server with persistent file storage
 - Handles file uploads, Deepgram transcription, and audio serving
 - Auto-deploys from GitHub main branch
@@ -57,21 +62,24 @@ npm run dev
 ✅ **Live Audio Playback**: Synchronized with transcript segments  
 ✅ **Editable Transcript**: Click-to-edit text with real-time updates  
 ✅ **Export Functionality**: Download edited transcript as JSON  
-✅ **Responsive Design**: Works on desktop and mobile  
+✅ **Responsive Design**: Works on desktop and mobile
 
 ## 🎯 Notable Design Decisions
 
 ### **Architecture Choice: Separated Frontend/Backend**
+
 - **Frontend on Vercel**: Optimized for React/Vite builds, global CDN
 - **Backend on Railway**: Persistent storage for uploaded audio files
 - **Tradeoff**: Slightly more complex than monolithic deployment, but better performance and scalability
 
 ### **Speaker Diarization Strategy**
+
 - **Approach**: Uses chronological first speaker as "Agent", second as "Candidate"
 - **Fallback**: If complex patterns detected, uses frequency-based mapping
 - **Tradeoff**: Simple heuristic vs. complex AI analysis for speed and reliability
 
 ### **File Storage**
+
 - **Railway**: Persistent uploads directory for audio playback
 - **Vercel Alternative**: Could use temporary storage but loses audio playback capability
 - **Tradeoff**: Railway hosting cost vs. audio playback functionality
@@ -79,9 +87,11 @@ npm run dev
 ## 🔒 Environment Variables
 
 **Vercel Frontend**:
+
 - `VITE_API_URL`: Points to Railway backend
 
 **Railway Backend**:
+
 - `DEEPGRAM_API_KEY`: Your Deepgram API credentials
 - `PORT`: Auto-configured by Railway
 
@@ -95,7 +105,7 @@ npm run dev
 
 1. **Visit**: https://interview-transcriber.vercel.app
 2. **Upload**: Select an audio file (interview recording)
-3. **Transcribe**: Click "Upload & Transcribe" 
+3. **Transcribe**: Click "Upload & Transcribe"
 4. **Review**: AI processes and labels speakers automatically
 5. **Edit**: Click any text segment to edit in-place
 6. **Export**: Download the final transcript as JSON
