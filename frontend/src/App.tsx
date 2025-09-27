@@ -30,7 +30,9 @@ function App() {
     const fd = new FormData();
     fd.append('file', file);
     try {
-      const res = await axios.post(`${API_BASE_URL}/api/transcribe`, fd, {
+      // Ensure proper URL formatting without double slashes
+      const apiUrl = `${API_BASE_URL.replace(/\/$/, '')}/api/transcribe`;
+      const res = await axios.post(apiUrl, fd, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       const { audioUrl, segments: rawSegments } = res.data;
@@ -68,7 +70,11 @@ function App() {
         label: speakerToLabel[s.speaker] || `Speaker ${s.speaker}`,
         timestamp: formatTime(s.start || 0)
       }));
-      setAudioUrl(`${API_BASE_URL}${audioUrl}`);
+      // Handle audio URL concatenation, avoiding double slashes
+      const fullAudioUrl = audioUrl 
+        ? `${API_BASE_URL}${audioUrl.startsWith('/') ? audioUrl : '/' + audioUrl}`
+        : '';
+      setAudioUrl(fullAudioUrl);
       setSegments(mapped);
     } catch (err: unknown) {
       console.error('Upload error:', err);
